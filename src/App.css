@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.navLink{
+  color: wheat;
+ list-style-type: none;
+ text-decoration: none;
+ margin-top: 30%;
+}
+.navLink:hover{
+cursor: pointer;
+color: rgba(236, 93, 27, 0.938);
+text-decoration: underline;
+}
+.logo{
+  height: 100px;
+  width: 150px;
+}
+.toolbar{
+  background-color: rgb(33, 62, 111);
+}
