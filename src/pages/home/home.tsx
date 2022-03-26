@@ -1,23 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './home.css';
+import { Movies } from "../../models/Movies";
+import { getMovieByGenre, getMovies } from "../../services/movies";
+
 
 const Home=()=>{
+
+        const [films, setFilms]=useState<Movies|null>(null)
+        const [genre, setgenre]=useState('')
+
+
+    const  getFIlms= async ()=>{
+        return getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
+        console.log(films)
+    }
+
+
+    useEffect(()=>{
+        getFIlms();
+    },[films])
     // array provvisoria 
     const links = ["https://picsum.photos/500/300?img=1","https://picsum.photos/500/300?img=2","https://picsum.photos/500/300?img=3"]
 return (
     <div>
-        <div className='container-fluid' >
-           
+        <div className='container-fluid' >         
             <div className="row">
                 <div className="col-12">
                     <Carousel controls={true} nextIcon={<span aria-hidden="false" />} >
 
                     {
-                        links.map(link =>{
-                          return   (<Carousel.Item>
-                            <img
+                        links.map((link,index)=>{
+                            return   (
+                            <Carousel.Item key={index}>
+                            <img 
                                 className="d-block img-dim"
                                 src={link}
                                 alt="First slide"
@@ -26,11 +43,8 @@ return (
                         </Carousel.Item>)
                         })
                     }
-
                     
-
-                    </Carousel> 
-                  
+                    </Carousel>                 
                 </div>
             </div>
         </div>

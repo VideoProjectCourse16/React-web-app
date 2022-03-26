@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
@@ -8,15 +7,17 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import {Link, Outlet, Route, Routes }from 'react-router-dom'
-import Home from './components/home/home';
-import Category from './components/category/category';
-import Favorite from './components/favorite/favorite';
-import User from './components/profile/profile';
+import {Link, Route, Routes }from 'react-router-dom'
+import Home from './pages/home/home';
+import Favorite from './pages/favorite/favorite';
+import User from './pages/profile/profile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import Signin from './pages/signin/signin';
+import Signup from './pages/signup/signup';
+import { Button } from 'react-bootstrap';
+import { useNavigate }from 'react-router-dom'
+import SingleFilm from './pages/singleFilm/singleFIlm';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,9 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 function App() {
-  
+  let navigate=useNavigate()
   return (
-   <React.Fragment> 
+  <React.Fragment> 
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static">
       <Toolbar className='toolbar'>
@@ -73,7 +74,7 @@ function App() {
           sx={{ mr: 2 }}
           color="inherit"
         >
-          <img className='logo' src="https://leganerd.com/wp-content/uploads/2020/10/primevideo-seo-logo-square-999x999.png" alt="" />
+          <img className='logo' src="./assets/logo.png" alt="" />
         </IconButton>
           <Typography variant="h6" noWrap component="li" sx={{mr: 1, display: { xs: 'none', sm: 'block' } }}>
             <Link className='navLink' to="/">Home</Link>
@@ -81,6 +82,7 @@ function App() {
           <Typography variant="h6" noWrap component="li" sx={{flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
             <Link className='navLink' to="/favorite">Favorite</Link>
           </Typography>
+          <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("/signup")}  variant="Outlined">Iscriviti</Button>
         <Search>
           <SearchIconWrapper>
             <SearchIcon />
@@ -97,16 +99,19 @@ function App() {
     </AppBar>
   </Box>
       <Routes>
-          <Route  path='/' element={<Home />}/>
+          <Route  path='/home'>
+            <Route index element={<Home />}/>
+            <Route path=':id' element={<SingleFilm />}/>
+          </Route>
+          <Route  path='*' element={<Home />}/>
           <Route path="profile" element={<User />}/>
           <Route path="favorite" element={<Favorite />}/>
+          <Route path="signin" element={<Signin />}/>
+          <Route path="signup" element={<Signup />}/>
       </Routes>
 </React.Fragment>
   );
 }
 
 export default App;
-function rgba(arg0: number, arg1: number, arg2: number, arg3: number): import("csstype").Property.BackgroundColor | undefined {
-  throw new Error('Function not implemented.');
-}
 
