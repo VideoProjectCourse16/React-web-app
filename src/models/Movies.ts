@@ -38,4 +38,12 @@ type loginType={
   }
 }
 
-export  type {Movie, Movies, signup, UserInfo, loginType}
+type staticFilm={
+    id: number;
+    image:string
+    title: string;
+    popularity: number;
+    genre: string;
+}
+
+export  type {Movie, Movies, signup, UserInfo, loginType, staticFilm}

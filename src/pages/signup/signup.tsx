@@ -47,7 +47,7 @@ const Signup=()=>{
     }
     // return  e===`Username ${username} already exists`? console.log('user exist'): `User ${username} succesfully registered!`;
     return(
-        <Container  className="container" maxWidth="xs">
+        <Container  className="signup-container" maxWidth="xs">
             <Paper  className="paper" elevation={10}>
                     <div className="imgContainer">
                         <img  className="imgItem" src="./assets/logo.png" alt="logo" />
