@@ -1,8 +1,24 @@
 .bg{
-    background-color: #0f171e;
+    background-color: #1b2530;
+   
 }
 
 .img-dim{
-    height: 25vh;
-    width: 100vw;
+    height: 26vh;
+    width: 94vw;
+    align-items: center;
+    padding-left: 25px;
 }
+.icon{
+    background-color: black;
+}
+
+.indicators button{
+    background-color: white!important;
+    border-radius: 50% !important;
+    height: 0.5rem!important;
+    width: 0.5rem!important;
+    display: flex;
+
+} 
+

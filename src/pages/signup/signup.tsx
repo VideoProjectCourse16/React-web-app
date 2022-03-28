@@ -90,7 +90,7 @@ const Signup=()=>{
                         <Stack >
                             <Button onClick={()=>signup()} style={{marginTop:20,textAlign:"center"}} variant="contained">SignUp</Button>
                         </Stack>
-                            <h4 style={{textAlign:"center"}} >sei  già registrato ? Cclicca su login</h4>
+                            <h6 style={{textAlign:"center"}} >sei  già registrato ? Clicca su login</h6>
                         <Stack >
                             <Button onClick={()=>navigate("/signin")} style={{marginTop:20,textAlign:"center"}} variant="contained">Login</Button>
                         </Stack>

@@ -38,7 +38,7 @@
 }
 
 .navLink{
-  color: wheat;
+  color: white;
  list-style-type: none;
  text-decoration: none;
  margin-top: 30%;
@@ -49,8 +49,12 @@ color: rgba(236, 93, 27, 0.938);
 text-decoration: underline;
 }
 .logo{
-  width: 200px;
+  width: 9.688rem;
 }
 .toolbar{
-  background-color: rgb(33, 62, 111);
+  background-color: #1b2530 ;
+
+}
+.dim-nav{
+  height: 72px;
 }

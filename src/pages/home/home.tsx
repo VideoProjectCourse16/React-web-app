@@ -22,14 +22,17 @@ const Home=()=>{
         getFIlms();
     },[films])
     // array provvisoria 
-    const links = ["https://picsum.photos/500/300?img=1","https://picsum.photos/500/300?img=2","https://picsum.photos/500/300?img=3"]
+    const links = ["https://picsum.photos/500/300?img=1","https://picsum.photos/500/300?img=2","https://picsum.photos/500/300?img=3","https://picsum.photos/500/300?img=1","https://picsum.photos/500/300?img=2","https://picsum.photos/500/300?img=3"]
 return (
-    <div>
-        <div className='container-fluid' >         
+  
+              
+    <div className="bg">
+        <div className='container-fluid indicators ' >
+           
             <div className="row">
                 <div className="col-12">
-                    <Carousel controls={true} nextIcon={<span aria-hidden="false" />} >
-
+                    <Carousel  controls={true} nextIcon={<span aria-hidden="true" className="carousel-control-next-icon " /> } variant="dark"  pause={'hover'} >
+                        
                     {
                         links.map((link,index)=>{
                             return   (
@@ -43,6 +46,8 @@ return (
                         </Carousel.Item>)
                         })
                     }
+
+
                     
                     </Carousel>                 
                 </div>

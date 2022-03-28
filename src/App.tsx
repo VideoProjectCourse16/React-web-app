@@ -63,9 +63,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function App() {
   let navigate=useNavigate()
   return (
+   
+
+    
   <React.Fragment> 
     <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
+    <AppBar position="static" className='dim-nav'>
       <Toolbar className='toolbar'>
         <IconButton
           size="large"
@@ -110,6 +113,7 @@ function App() {
           <Route path="signup" element={<Signup />}/>
       </Routes>
 </React.Fragment>
+
   );
 }
 
