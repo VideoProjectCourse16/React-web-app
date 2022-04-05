@@ -18,6 +18,9 @@ import { Button } from 'react-bootstrap';
 import { useNavigate }from 'react-router-dom'
 import SingleFilm from './pages/singleFilm/singleFIlm';
 import MovieComponent from './pages/movies/movies';
+import { getMovieByTitle } from './services/movies';
+import { Movie, Movies, staticFilm } from './models/Movies';
+import { movies } from './models/mock';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,9 +64,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 function App() {
+  const [search, setSearch] = React.useState<string>('')
+  //const [search, setSearch] = React.useState<Movies>()
   const navigate=useNavigate()
+
+  const searchFilm = async() => {
+    //const newSearch = await getMovieByTitle(srcTitle);
+    //setSearch(newSearch.data);
+    return movies.filter(({title})=>title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+  }
+
   return (
-     
+  
   <React.Fragment> 
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static" className='dim-nav'>
@@ -84,16 +96,15 @@ function App() {
             <Link className='navLink' to="/favorite">Favorite</Link>
           </Typography>
           <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("signup")}  variant="Outlined">Iscriviti</Button>
-        <Search style={{background:"white"}}>
-          <SearchIconWrapper >
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-         
-          />
-        </Search>
+          <Search style={{background:"white"}}>
+            <SearchIconWrapper >
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase onChange={(event)=>setSearch(event.target.value)}
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
         <Typography variant="h6" noWrap component="li" sx={{ml: 1, display: { xs: 'none', sm: 'block' } }}>
             <Link  className='navLink' to="/profile"> <AccountCircleIcon fontSize='large'/> </Link>
         </Typography>
@@ -102,10 +113,11 @@ function App() {
   </Box>
       <Routes>
           <Route  path='/movies'>
-            <Route index element={<MovieComponent />}/>
-            <Route path=':id' element={<SingleFilm />}/>
+          <Route index element={<MovieComponent />}/>
+          <Route path=':id' element={<SingleFilm />}/>
           </Route>
           <Route  path='*' element={<MovieComponent/>}/>
+          
           <Route path="profile" element={<User />}/>
           <Route path="favorite" element={<Favorite />}/>
           <Route path="signin" element={<Signin />}/>

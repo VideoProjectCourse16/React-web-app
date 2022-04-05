@@ -11,6 +11,7 @@ axios.post<loginType>(`${baseUrl}/auth/signin`, { user}, {headers: {'Content-Typ
 const register = async (name:string,surname:string, username:string, password:string, repeatPassword:string)=>{
     return axios.post(`${baseUrl}/auth/signup`,{ name,surname, username, password, repeatPassword}) as Promise<{message:string}>
 };
-const getMe = () =>  axios.get<UserInfo>(`${baseUrl}/auth/me`)
+
+const getMe = () =>  axios.get<UserInfo>(`${baseUrl}/auth/me`, {headers: {'Content-Type': 'application/json',authorization: `Bearer `}})
 
 export {login, register, getMe};

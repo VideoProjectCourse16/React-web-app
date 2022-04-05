@@ -33,21 +33,27 @@ const FilmCard: FC<filmCard>=({movie})=> {
     let [render, setRender]=useState<boolean>(false);
     let navigate=useNavigate();
 
+    const youtube = () => {
+      const you = movie?.trailer.split("=").splice(1);
+      you?.splice(0, 0, "embed/");
+      return you?.join('')
+  }
+
     const classes = useStyles();
   return (
     <Card  style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
       <CardActionArea  onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
         { render ?
 
-           <iframe 
+          <iframe 
             frameBorder="0"
             allow="autoplay; encrypted-media"
             title="video"
-             className="trailer"
-            src={`${movie.trailer}?rs:embed=true`}/>
+            className="trailer"
+            src={`https://www.youtube.com/${youtube()}?autoplay=1`}/>
 
   
-       :
+      :
         <CardMedia
             className={classes.media}
             image={movie.backdrop_path}
@@ -61,7 +67,7 @@ const FilmCard: FC<filmCard>=({movie})=> {
               {movie.title}
               </Typography>
               <Typography gutterBottom variant="h6" component="h6">
-               popularity: { movie.popularity}
+                <p>popularity: { movie.popularity}</p>
               </Typography>
               <Typography gutterBottom variant="h6" component="h6">
               { movie.genre}

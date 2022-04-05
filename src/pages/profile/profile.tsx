@@ -22,15 +22,7 @@ const User=()=>{
 
     return(<>
         <h1 className="text-center">Area Personale</h1>
-        {/* <div className="container-fluid">
-            {   user && 
-                <>
-                    <h3>surname: {user.surname}</h3>
-                    <h3>nome: {user.name}</h3>
-                    <h3>username: {user.username}</h3>
-                </>
-            }
-        </div> */
+        {
         <div className="container-fluid d-flex justify-content-center mt-5">
             {
                 user && 
