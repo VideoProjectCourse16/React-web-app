@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./home.css";
+import "./movies.css";
 import { Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import { CarouselComponent } from "../../components/carousel/carousel";
 
-const Home = () => {
+const MovieComponent = () => {
   // array provvisoria
   const links = [
     "https://picsum.photos/500/300?img=1",
@@ -49,8 +49,9 @@ const Home = () => {
       </div>
       <div>
         <CarouselComponent />
+        <CarouselComponent />
       </div>
     </div>
   );
 };
-export default Home;
+export default MovieComponent;

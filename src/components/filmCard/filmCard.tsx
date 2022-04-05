@@ -12,11 +12,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
+import "./filmCard.css"
+//import {player} from 'video-react'
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    borderRadius: 20
+    borderRadius: 5
   },
   media: {
     height: 200,
@@ -25,31 +27,55 @@ const useStyles = makeStyles({
 
 type filmCard={movie:staticFilm};
 const FilmCard: FC<filmCard>=({movie})=> {
-    const [is_elev, setElev]=useState(2 as 2|13)
+    const [is_elev, setElev]=useState(2 as 2|10)
+    let [render, setRender]=useState<boolean>(false);
+
     const classes = useStyles();
 
   return (
-    <Card  elevation={is_elev} onMouseEnter={()=>setElev(13)} onMouseLeave={()=>setElev(2)} className={classes.root}>
-      <CardActionArea>
+    <Card style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
+      <CardActionArea  onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
+        { render ?
+          <video
+          src={movie.trailer}
+          muted
+          autoPlay={true}
+          loop
+          className="trailer"
+        > 
+        <source src={movie.trailer} type="video/mp4" />
+        </video>
+       :
         <CardMedia
-          className={classes.media}
-          image={movie.image}
-          title={movie.title}
+            className={classes.media}
+            image={movie.image}
+            title={movie.title} 
         />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h5">
-                {movie.genre}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="h6">
-                popularity: { movie.popularity}
-                </Typography>
-            </CardContent>
+        }
+
+        {render && 
+        (
+          <CardContent>
+              <Typography gutterBottom variant="h5" component="h5">
+              {movie.genre}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="h6">
+              popularity: { movie.popularity}
+              </Typography>
+          </CardContent>
+        )
+        }
       </CardActionArea>
-      <CardActions>
-        <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-        </IconButton>
-      </CardActions>
+      {
+        render &&
+        (
+        <CardActions>
+            <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+            </IconButton>
+       </CardActions>
+        )
+      }
     </Card>
   );
 }

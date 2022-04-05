@@ -9,7 +9,6 @@ import { useNavigate }from 'react-router-dom'
 import { register } from "../../services/auth";
 
 
-
 const Signup=()=>{
     const [name, setName]=useState('')
     const [surname, setSurname]=useState('')
@@ -40,7 +39,7 @@ const Signup=()=>{
 
 
 
-    const  signup= async()=>{
+    const  signup=()=>{
         register(name, surname, username, password, repeatPassword).then((_)=>navigate('/signin')).catch((err)=>{
             return err.message==='Request failed with status code 422' ? console.log(`Username ${username} already exists`) : navigate('/signin')
         })
@@ -90,7 +89,7 @@ const Signup=()=>{
                         <Stack >
                             <Button onClick={()=>signup()} style={{marginTop:20,textAlign:"center"}} variant="contained">SignUp</Button>
                         </Stack>
-                            <h6 style={{textAlign:"center"}} >sei  già registrato ? Clicca su login</h6>
+                            <h6 style={{textAlign:"center"}} >sei  già registrato ?</h6>
                         <Stack >
                             <Button onClick={()=>navigate("/signin")} style={{marginTop:20,textAlign:"center"}} variant="contained">Login</Button>
                         </Stack>

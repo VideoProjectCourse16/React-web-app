@@ -44,6 +44,7 @@ type staticFilm={
     title: string;
     popularity: number;
     genre: string;
+    trailer:string
 }
 
 export  type {Movie, Movies, signup, UserInfo, loginType, staticFilm}

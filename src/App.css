@@ -38,10 +38,11 @@
 }
 
 .navLink{
-  color: white;
+ color: white;
  list-style-type: none;
  text-decoration: none;
  margin-top: 30%;
+ margin-right: 10px;
 }
 .navLink:hover{
 cursor: pointer;
@@ -52,9 +53,11 @@ text-decoration: underline;
   width: 9.688rem;
 }
 .toolbar{
-  background-color: #1b2530 ;
+  background-color:rgb(10, 31, 53) ;
+  height: 100px;
+  /* #1b2530  */
 
 }
 .dim-nav{
-  height: 72px;
+  height: 72;
 }

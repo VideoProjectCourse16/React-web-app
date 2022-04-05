@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import {Link, Route, Routes }from 'react-router-dom'
-import Home from './pages/home/home';
 import Favorite from './pages/favorite/favorite';
 import User from './pages/profile/profile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -18,6 +17,7 @@ import Signup from './pages/signup/signup';
 import { Button } from 'react-bootstrap';
 import { useNavigate }from 'react-router-dom'
 import SingleFilm from './pages/singleFilm/singleFIlm';
+import MovieComponent from './pages/movies/movies';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,11 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 function App() {
-  let navigate=useNavigate()
+  const navigate=useNavigate()
   return (
-   
-
-    
+     
   <React.Fragment> 
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static" className='dim-nav'>
@@ -80,19 +78,20 @@ function App() {
           <img className='logo' src="./assets/logo.png" alt="" />
         </IconButton>
           <Typography variant="h6" noWrap component="li" sx={{mr: 1, display: { xs: 'none', sm: 'block' } }}>
-            <Link className='navLink' to="/">Home</Link>
+            <Link className='navLink' to="/movies">Home</Link>
           </Typography>
           <Typography variant="h6" noWrap component="li" sx={{flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
             <Link className='navLink' to="/favorite">Favorite</Link>
           </Typography>
-          <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("/signup")}  variant="Outlined">Iscriviti</Button>
-        <Search>
-          <SearchIconWrapper>
+          <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("signup")}  variant="Outlined">Iscriviti</Button>
+        <Search style={{background:"white"}}>
+          <SearchIconWrapper >
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
+         
           />
         </Search>
         <Typography variant="h6" noWrap component="li" sx={{ml: 1, display: { xs: 'none', sm: 'block' } }}>
@@ -102,11 +101,11 @@ function App() {
     </AppBar>
   </Box>
       <Routes>
-          <Route  path='/home'>
-            <Route index element={<Home />}/>
+          <Route  path='/movies'>
+            <Route index element={<MovieComponent />}/>
             <Route path=':id' element={<SingleFilm />}/>
           </Route>
-          <Route  path='*' element={<Home />}/>
+          <Route  path='*' element={<MovieComponent/>}/>
           <Route path="profile" element={<User />}/>
           <Route path="favorite" element={<Favorite />}/>
           <Route path="signin" element={<Signin />}/>
