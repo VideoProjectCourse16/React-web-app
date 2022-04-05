@@ -23,13 +23,7 @@ type signup={
     password: string;
     repeatPassword:string;
 }
-type UserInfo={
-    name: string;
-    surname: string;
-    username: string;
-    iat:string;
-    id:number;
-}
+
 type loginType={
   message:string,
   user:{
@@ -47,4 +41,4 @@ type staticFilm={
     trailer:string
 }
 
-export  type {Movie, Movies, signup, UserInfo, loginType, staticFilm}
+export  type {Movie, Movies, signup, loginType, staticFilm}
