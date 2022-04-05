@@ -12,7 +12,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
-import YouTube from 'react-youtube';
+
 import "./filmCard.css"
 import { useNavigate }from 'react-router-dom'
 //import {player} from 'video-react'
