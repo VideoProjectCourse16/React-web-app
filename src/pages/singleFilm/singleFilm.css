@@ -1,0 +1,8 @@
+.single-movie{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: auto;
+    height: 100vh;
+}

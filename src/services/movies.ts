@@ -8,8 +8,6 @@ const {baseUrl}=env;
 
 const getMovies= ()=>axios.get<Movies>(`${baseUrl}/movies`);
 const getMovieByGenre=(genre:string)=>axios.get<Movie>(`${baseUrl}/movies?genre=${genre}`);
-const  getUserInfo=()=>{
-    return axios.get<UserInfo>(`${baseUrl}/auth/me`, {headers: {'Content-Type': 'application/json',authorization: `Bearer `}});
-};
+const getMovieById=(id:string)=>axios.get<Movie>(`${baseUrl}/movies/${id}`);
 
-export {getMovies, getMovieByGenre}
+export {getMovies, getMovieByGenre, getMovieById}

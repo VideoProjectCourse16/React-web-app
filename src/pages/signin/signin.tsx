@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from "react";
 import './signin.css';
 import FormControl from '@mui/material/FormControl';
 import { Container, FormHelperText, Input, InputLabel, Paper } from "@mui/material";
@@ -10,8 +10,8 @@ import { login } from "../../services/auth";
 
 
 const Signin=()=>{
-    const [username, setUsername]=useState('')
-    const [password, setPassword]=useState('')
+    const defaultUser={username:'', password:''};
+    const [user, setUser]=useState({...defaultUser})
     const [accessToken, setAccessToken]=useState('')
 
 
@@ -22,18 +22,16 @@ useEffect(()=>{
 
 
     let navigate=useNavigate();
-    const changeHandler = (event: any) => {
-        setUsername(event.target.value);
+    
+    const changeHandler:ChangeEventHandler<HTMLInputElement> = ({target:{name, value}}) => {
+        setUser({...user, [name]:value});
     };
-    const changeHandler2 = (event: any) => {
-        setPassword(event.target.value);
 
-    };
-    const debouncedChangeHandler = useMemo( ()=>debounce(changeHandler, 400), [username]);
-    const debouncedChangeHandler2 = useMemo( ()=>debounce(changeHandler2, 400), [password]);
+    const debouncedChangeHandler = useMemo( ()=>debounce(changeHandler, 400), [user]);
+
     
     const signin= async()=>{
-        login(username, password).then(({data})=>{
+        login(user).then(({data})=>{
             if(data.message==='Succesfully logged in!'){
                 setAccessToken(data.user.token);
                 console.log(data.message);
@@ -54,14 +52,14 @@ useEffect(()=>{
                         <div  className="formItem">
                             <FormControl  required={true} >
                                 <InputLabel htmlFor="my-input">Username</InputLabel>
-                                <Input   onChange={debouncedChangeHandler}  type="email"  id="email" aria-describedby="my-helper-text" />
+                                <Input   onChange={debouncedChangeHandler}  type="email"  name="username" id="usernamee" aria-describedby="my-helper-text" />
                                 <FormHelperText id="my-helper-text">We'll never share your Uaername.</FormHelperText>
                             </FormControl>
                         </div>
                         <div className="formItem">
                             <FormControl  required={true} >
                                 <InputLabel htmlFor="my-input">Password</InputLabel>
-                                <Input  onChange={debouncedChangeHandler2} type="password" id="password" aria-describedby="my-helper-text" />
+                                <Input  onChange={debouncedChangeHandler} type="password" name="password" id="password" aria-describedby="my-helper-text" />
                                 <FormHelperText id="my-helper-text">We'll never share your password.</FormHelperText>
                             </FormControl>
                         </div>

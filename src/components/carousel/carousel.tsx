@@ -2,10 +2,12 @@ import { WithStyles } from "@material-ui/core";
 import React,{ Component, FC, useEffect, useState}  from "react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Movies, staticFilm } from "../../models/Movies";
+import { Movie, Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import FilmCard from "../filmCard/filmCard";
 import "./carousel.css"
+import { useNavigate }from 'react-router-dom'
+import {movies} from '../../models/mock'
 
 const staticMovies=[
     {
@@ -107,19 +109,17 @@ const staticMovies=[
 ]
 
 export const CarouselComponent: FC= ()=>{
-
-    const [films, setFilms]=useState<Movies|null>(null)
-    const [staticFilms, setStaticFilms]=useState<staticFilm[]>([])
+    let navigate=useNavigate();
+    const [films, setFilms]=useState<Movie[]>([])
     const [genre, setgenre]=useState('')
 
 
-const  getFIlms=()=>{
-    getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
-    console.log(films)
-}
-const  getStaticFilms=()=>{
-        setStaticFilms(staticMovies)
-        staticFilms && console.log(staticFilms)
+const  getFilms= ()=>{
+    // getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
+    // console.log(films)
+        const data=  movies.map((movie)=>movie)
+        setFilms(data)
+        console.log(films)
 
 }
 
@@ -135,9 +135,8 @@ const  getStaticFilms=()=>{
 //   }
 
     useEffect(()=>{
-        //getFIlms();
-        getStaticFilms()
-    },[staticFilms])
+        getFilms()
+    },[])
 
 
 return(
@@ -186,8 +185,8 @@ return(
       shouldResetAutoplay={false}
       autoPlay={true}
     >
-        {staticFilms && staticFilms.map((film, index)=>
-        <div style={{marginRight:10}} key={index}>
+        {films && films.map((film, index)=>
+        <div onClick={()=>navigate(`/movies/${film.id}`)} style={{marginRight:10}} key={index}>
             <FilmCard  movie={film} key={film.id}/>
         </div>
         )}
