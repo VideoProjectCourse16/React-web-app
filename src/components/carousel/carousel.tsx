@@ -1,13 +1,13 @@
 import { WithStyles } from "@material-ui/core";
-import React,{ Component, FC, useEffect, useState}  from "react";
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import React, { Component, FC, useEffect, useState } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { Movie, Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import FilmCard from "../filmCard/filmCard";
-import "./carousel.css"
-import { useNavigate }from 'react-router-dom'
-import {movies} from '../../models/mock'
+import "./carousel.css";
+import { useNavigate } from "react-router-dom";
+import { movies } from "../../models/mock";
 
 // export const staticMovies=[
 //     {
@@ -108,95 +108,103 @@ import {movies} from '../../models/mock'
 //             },
 // ]
 
-export const CarouselComponent: FC= ()=>{
-    let navigate=useNavigate();
-    const [films, setFilms]=useState<Movie[]>([])
-    //const [genre, setgenre]=useState('')
-    const genre = ["Adventure", "Fantasy", "Animation", "Action", "Drama", "Horror"];
+export const CarouselComponent: FC = () => {
+  const goToFilm = (id: string) => {
+    navigate(`/movies/${id}`);
+  };
+  let navigate = useNavigate();
+  const [films, setFilms] = useState<Movie[]>([]);
+  //const [genre, setgenre]=useState('')
+  const genre = [
+    "Adventure",
+    "Fantasy",
+    "Animation",
+    "Action",
+    "Drama",
+    "Horror",
+  ];
 
-    const  getFilms= ()=>{
-        // getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
-        // console.log(films)
-            const data=  movies.map((movie)=>movie)
-            setFilms(data)
-    }
+  const getFilms = () => {
+    // getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
+    // console.log(films)
+    const data = movies.map((movie) => movie);
+    setFilms(data);
+  };
 
-    /*const getGenreMovies = (term: string) => {
+  /*const getGenreMovies = (term: string) => {
         const data=  movies.map((movie)=>movie);
         setFilms(data.filter(({genre})=>genre==term));
     }*/
 
-    // const addToFavorites=(id:number)=>{
-    //     if (!characters) return;
-    //     const index = characters.findIndex(({id: idCharacter}) => id ===idCharacter);
-    //   if(index!==-1){
-    //     const result= characters.splice(index, 1);
-    //     setCharacter([...characters]);
-    //      setFavorites([...favorites, ...result])
-    //     }
-        
-    //   }
+  // const addToFavorites=(id:number)=>{
+  //     if (!characters) return;
+  //     const index = characters.findIndex(({id: idCharacter}) => id ===idCharacter);
+  //   if(index!==-1){
+  //     const result= characters.splice(index, 1);
+  //     setCharacter([...characters]);
+  //      setFavorites([...favorites, ...result])
+  //     }
 
-    useEffect(()=>{
-        getFilms();
-    },[])
+  //   }
 
+  useEffect(() => {
+    getFilms();
+  }, []);
 
-    return(
-        <>
-        <h2>{genre.map(item=>item)}</h2>
-        <Carousel
-            arrows
-            className="carousel"
-            draggable
-            itemClass=""
-            keyBoardControl={true}
-            minimumTouchDrag={80}
-            pauseOnHover={true}
-            ssr={true}
-            focusOnSelect={true}
-            infinite={false}
-
-            responsive={{
-                desktop: {
-                    breakpoint: {
-                        max: 3000,
-                        min: 1024
-                    },
-                    items: 5,
-                    partialVisibilityGutter: 40
-                },
-                mobile: {
-                    breakpoint: {
-                        max: 464,
-                        min: 0
-                    },
-                    items: 1,
-                    partialVisibilityGutter: 30
-                },
-                tablet: {
-                    breakpoint: {
-                        max: 1024,
-                        min: 464
-                    },
-                    items: 2,
-                    partialVisibilityGutter: 30
-                }
-            }}
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={3}
-                swipeable
-                shouldResetAutoplay={false}
-                autoPlay={true}
-            >
-            {films && films.map((film, index)=>
-                <div onClick={()=>navigate(`/movies/${film.id}`)} style={{marginRight:10}} key={index}>
-                    <FilmCard  movie={film} key={film.id}/>
-                </div>
-            )}
-        </Carousel>
+  return (
+    <>
+      <h2>{genre.map((item) => item)}</h2>
+      <Carousel
+        arrows
+        className="carousel"
+        draggable
+        itemClass=""
+        keyBoardControl={true}
+        minimumTouchDrag={80}
+        pauseOnHover={true}
+        ssr={true}
+        focusOnSelect={true}
+        infinite={false}
+        responsive={{
+          desktop: {
+            breakpoint: {
+              max: 3000,
+              min: 1024,
+            },
+            items: 5,
+            partialVisibilityGutter: 40,
+          },
+          mobile: {
+            breakpoint: {
+              max: 464,
+              min: 0,
+            },
+            items: 1,
+            partialVisibilityGutter: 30,
+          },
+          tablet: {
+            breakpoint: {
+              max: 1024,
+              min: 464,
+            },
+            items: 2,
+            partialVisibilityGutter: 30,
+          },
+        }}
+        showDots={false}
+        sliderClass=""
+        slidesToSlide={3}
+        swipeable
+        shouldResetAutoplay={false}
+        autoPlay={true}
+      >
+        {films &&
+          films.map((film, index) => (
+            <div style={{ marginRight: 10 }} key={index}>
+              <FilmCard movieIesimo={goToFilm} movie={film} key={film.id} />
+            </div>
+          ))}
+      </Carousel>
     </>
-    )
-
-}
+  );
+};

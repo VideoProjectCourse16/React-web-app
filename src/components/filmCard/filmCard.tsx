@@ -12,7 +12,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
-
 import "./filmCard.css"
 import { useNavigate }from 'react-router-dom'
 //import {player} from 'video-react'
@@ -27,8 +26,8 @@ const useStyles = makeStyles({
   },
 });
 
-type filmCard={movie:Movie};
-const FilmCard: FC<filmCard>=({movie})=> {
+type filmCard={movie:Movie,movieIesimo:(_:string)=>void};
+const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
     const [is_elev, setElev]=useState(2 as 2|10)
     let [render, setRender]=useState<boolean>(false);
     let navigate=useNavigate();
@@ -41,19 +40,16 @@ const FilmCard: FC<filmCard>=({movie})=> {
 
     const classes = useStyles();
   return (
-    <Card  style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
-      <CardActionArea  onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
+    <Card   style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
+      <CardActionArea onClick={()=>movieIesimo(movie.id)} onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
         { render ?
-
-          <iframe 
+           <iframe 
             frameBorder="0"
             allow="autoplay; encrypted-media"
             title="video"
             className="trailer"
             src={`https://www.youtube.com/${youtube()}?autoplay=1`}/>
-
-  
-      :
+       :
         <CardMedia
             className={classes.media}
             image={movie.backdrop_path}
