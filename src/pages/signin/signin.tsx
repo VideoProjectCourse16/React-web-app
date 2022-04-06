@@ -16,7 +16,7 @@ const Signin=()=>{
 
 
 useEffect(()=>{
-    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('token', accessToken)
 },[accessToken])
 
 
@@ -31,7 +31,8 @@ useEffect(()=>{
 
     
     const signin= async()=>{
-        login(user).then(({data})=>{
+        console.log('user:', user)
+        login(user.username, user.password).then(({data})=>{
             if(data.message==='Succesfully logged in!'){
                 setAccessToken(data.user.token);
                 console.log(data.message);

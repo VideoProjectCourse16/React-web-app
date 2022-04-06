@@ -17,10 +17,10 @@ const getMovieById=(id:string)=>axios.get<Movies>(`${baseUrl}/movies/${id}`);
 const getMovieByTitle=(title:string)=>axios.get<Movies>(`${baseUrl}/movies?title=${title}`);
 
 const  getUserInfo=()=>{
-    return axios.get<UserInfo>(`${baseUrl}/auth/me`, {headers: {'Content-Type': 'application/json',authorization: `Bearer `}});
+    return axios.get<UserInfo>(`${baseUrl}/auth/me`, {headers: {'Content-Type': 'application/json',token: `Bearer `}});
 };
 // users/favorites
 const getFavorites = ()=> axios.get<Movies>(`${baseUrl}/users/favorites`,{headers: {'Content-Type': 'application/json',authorization: `Bearer `}});
-const postFavorite = (username:string,id:string)=>axios.post<Movies>(`${baseUrl}//users/favorites`, { username,id},{headers: {'Content-Type': 'application/json',authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+const postFavorite = (username:string,id:string)=>axios.post<Movies>(`${baseUrl}//users/favorites`, { username,id},{headers: {'Content-Type': 'application/json', token: `Bearer ${localStorage.getItem('token')}`}})
 
 export {getMovies, getMovieByGenre,getFavorites,postFavorite,getMovieById, getMovieByTitle}

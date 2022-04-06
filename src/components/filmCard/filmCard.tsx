@@ -33,14 +33,15 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
 
     const classes = useStyles();
   return (
-    <Card   style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
-      <CardActionArea onClick={()=>movieIesimo(movie.id)} onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
+    <Card  onClick={()=>movieIesimo(movie.id)}  style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
+      <CardActionArea onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
         { render ?
            <iframe 
             frameBorder="0"
             title="video"
             className="trailer"
-            src={`${movie.trailer}?autoplay=1`}/>
+            onClickCapture={()=>movieIesimo(movie.id)}
+            src={`${movie.trailer}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=0&rel=0`}/>
        :
         <CardMedia
             className={classes.media}
