@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./movies.css";
-import { Movies, staticFilm } from "../../models/Movies";
+import { Movie, Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import { CarouselComponent } from "../../components/carousel/carousel";
-
-const MovieComponent = () => {
+import FilmCard from "../../components/filmCard/filmCard";
+import { useNavigate } from "react-router";
+type filmCard={searchMovies:Movies};
+const MovieComponent: FC<filmCard> = ({searchMovies}) => {
+  const goToFilm = (id: string) => {
+    navigate(`/movies/${id}`);
+  };
+  let navigate = useNavigate();
   // array provvisoria
   const links = [
     "https://picsum.photos/500/300?img=1",
@@ -45,6 +51,18 @@ const MovieComponent = () => {
               })}
             </Carousel>
           </div>
+        </div>
+      </div>
+      <div className="container-fluid">
+        <div className="row pt-5">
+        {searchMovies.length>0 && (<h2 className="text-white">Ricerca</h2>)}
+          {searchMovies &&
+            searchMovies.map((film, index) => (
+              <div className="col-3 mt-3" style={{ marginRight: 10 }} key={index}>
+                <FilmCard movieIesimo={goToFilm} movie={film} key={film.id} />
+              </div>
+            
+          ))}
         </div>
       </div>
       <div>

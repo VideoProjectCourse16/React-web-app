@@ -126,7 +126,7 @@ export const CarouselComponent: FC = () => {
 
   const getFilms = () => {
     // getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
-    // console.log(films)
+    // setFilms(films)
     const data = movies.map((movie) => movie);
     setFilms(data);
   };
@@ -153,7 +153,7 @@ export const CarouselComponent: FC = () => {
 
   return (
     <>
-      <h2>{genre.map((item) => item)}</h2>
+      
       <Carousel
         arrows
         className="carousel"

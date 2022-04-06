@@ -21,6 +21,7 @@ import MovieComponent from './pages/movies/movies';
 import { getMovieByTitle } from './services/movies';
 import { Movie, Movies, staticFilm } from './models/Movies';
 import { movies } from './models/mock';
+import debounce from 'lodash.debounce'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,15 +65,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 function App() {
-  const [search, setSearch] = React.useState<string>('')
+  const [filtFilms, setFiltFilms] = React.useState<Movies>([]);
   //const [search, setSearch] = React.useState<Movies>()
   const navigate=useNavigate()
 
-  const searchFilm = async() => {
-    //const newSearch = await getMovieByTitle(srcTitle);
-    //setSearch(newSearch.data);
-    return movies.filter(({title})=>title.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+  const searchFilm = async(event: any) => {
+    //const newSearch = await getMovieByTitle(term);
+    //setFiltFilms(newSearch.data);
+    let results: Movies = []
+    event.target.value!='' && (results = movies.filter(({title})=>title.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())));
+    setFiltFilms(results);
   }
+
+  const debouncedChangeHandler = React.useMemo( ()=>debounce(searchFilm, 500), []);
+
+  // React.useEffect(()=>{
+  //   searchFilm()
+  // },[search])
 
   return (
   
@@ -100,7 +109,7 @@ function App() {
             <SearchIconWrapper >
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase onChange={(event)=>setSearch(event.target.value)}
+            <StyledInputBase onChange={debouncedChangeHandler}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
@@ -113,10 +122,10 @@ function App() {
   </Box>
       <Routes>
           <Route  path='/movies'>
-          <Route index element={<MovieComponent />}/>
+          <Route index element={<MovieComponent searchMovies={filtFilms} />}/>
           <Route path=':id' element={<SingleFilm />}/>
           </Route>
-          <Route  path='*' element={<MovieComponent/>}/>
+          <Route  path='*' element={<MovieComponent searchMovies={filtFilms}/>}/>
           
           <Route path="profile" element={<User />}/>
           <Route path="favorite" element={<Favorite />}/>

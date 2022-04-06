@@ -31,7 +31,6 @@ useEffect(()=>{
 
     
     const signin= async()=>{
-        console.log('user:', user)
         login(user.username, user.password).then(({data})=>{
             if(data.message==='Succesfully logged in!'){
                 setAccessToken(data.user.token);
