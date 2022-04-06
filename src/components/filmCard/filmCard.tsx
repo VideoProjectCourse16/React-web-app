@@ -29,14 +29,7 @@ const useStyles = makeStyles({
 type filmCard={movie:Movie,movieIesimo:(_:string)=>void};
 const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
     const [is_elev, setElev]=useState(2 as 2|10)
-    let [render, setRender]=useState<boolean>(false);
-    let navigate=useNavigate();
-
-    const youtube = () => {
-      const you = movie?.trailer.split("=").splice(1);
-      you?.splice(0, 0, "embed/");
-      return you?.join('')
-  }
+    let [render, setRender]=useState<boolean>(false);    
 
     const classes = useStyles();
   return (
@@ -45,10 +38,9 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
         { render ?
            <iframe 
             frameBorder="0"
-            allow="autoplay; encrypted-media"
             title="video"
             className="trailer"
-            src={`https://www.youtube.com/${youtube()}?autoplay=1`}/>
+            src={`${movie.trailer}?autoplay=1`}/>
        :
         <CardMedia
             className={classes.media}
@@ -79,7 +71,7 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
             <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
             </IconButton>
-       </CardActions>
+        </CardActions>
         )
       }
     </Card>

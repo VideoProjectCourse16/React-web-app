@@ -19,11 +19,7 @@ import { Container } from "react-bootstrap";
         const res=movies.find(({id:idFilm})=>idFilm===id);
         setSingleMovie(res)
         })
-        const youtube = () => {
-            const you = singleMovie?.trailer.split("=").splice(1);
-            you?.splice(0, 0, "embed/");
-            return you?.join('')
-        }
+
         useEffect(()=>{
             loadData();
         },[])
@@ -73,7 +69,7 @@ import { Container } from "react-bootstrap";
                             title="video"
                             allowTransparency
                             width="420" height="315"
-                            src={`https://www.youtube.com/${youtube()}`}>
+                            src={singleMovie.trailer}>
                             </iframe>
                         }
                     </Grid>
