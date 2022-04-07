@@ -33,15 +33,14 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
 
     const classes = useStyles();
   return (
-    <Card  onClick={()=>movieIesimo(movie.id)}  style={{border: render ? '3px solid blue': 1, marginBottom:render ? '-10px':1}}  elevation={is_elev} onMouseOver={()=>setElev(10)} onMouseLeave={()=>setElev(2)} className={classes.root}>
+    <Card  onClick={()=>movieIesimo(movie.id)}  style={{border: '3px solid blue'}}  elevation={is_elev}  onMouseOver={()=>{setElev(10); setRender(true)}} onMouseLeave={()=>{setElev(2); setRender(false)}} className={classes.root}>
       <CardActionArea onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
         { render ?
            <iframe 
             frameBorder="0"
             title="video"
             className="trailer"
-            onClickCapture={()=>movieIesimo(movie.id)}
-            src={`${movie.trailer}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=0&rel=0`}/>
+            src={`${movie.trailer}?autoplay=1&mute=1&loop=1&controls=0&rel=0`}/>
        :
         <CardMedia
             className={classes.media}
@@ -49,32 +48,20 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
             title={movie.title} 
         />
         }
-        {render && 
-        (
           <CardContent>
               <Typography gutterBottom variant="h5" component="h5">
               {movie.title}
               </Typography>
               <Typography gutterBottom variant="h6" component="h6">
-                <p>popularity: { movie.popularity}</p>
-              </Typography>
-              <Typography gutterBottom variant="h6" component="h6">
               { movie.genre}
               </Typography>
           </CardContent>
-        )
-        }
       </CardActionArea>
-      {
-        render &&
-        (
         <CardActions>
             <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
             </IconButton>
         </CardActions>
-        )
-      }
     </Card>
   );
 }

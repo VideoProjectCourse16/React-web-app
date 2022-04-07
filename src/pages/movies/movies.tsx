@@ -65,8 +65,7 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
           ))}
         </div>
       </div>
-      <div>
-        <CarouselComponent />
+      <div >
         <CarouselComponent />
       </div>
     </div>

@@ -1,4 +1,37 @@
 .trailer{
     width: 100%;
     margin-bottom: 0;
+    height: 200px;
 }
+/* .cardContainer:hover{
+    max-width: 350;
+    border-radius: 5;
+    height: inherit;
+    z-index: 99;
+    transform: scale(2,2);
+   -webkit-transform: scale3d(1.2, 1.2, 1.2) translateZ(0) perspective(0);
+
+   -webkit-transition: -webkit-transform .25s cubic-bezier(.33, .04, .63, .93);
+   position: relative;
+}
+.cardContainer::after{
+    content: "";
+    position: absolute;
+    top: -7px;
+    bottom: -7px;
+    left: -7px;
+    right: -7px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: border .25s cubic-bezier(.33, .04, .63, .93);
+    pointer-events: none;
+    z-index: 1;
+}
+.cardContainer:hover::after{
+    content: "";
+    position: absolute;
+    top: -7px;
+    bottom: -7px;
+    left: -7px;
+    right: -7px;
+}  */

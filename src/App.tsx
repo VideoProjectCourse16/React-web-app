@@ -98,7 +98,7 @@ function App() {
         >
           <img className='logo' src="./assets/logo.png" alt="" />
         </IconButton>
-          <Typography variant="h6" noWrap component="li" sx={{mr: 1, display: { xs: 'none', sm: 'block' } }}>
+          <Typography variant="h6" noWrap component="li" sx={{mr: 1, ml:2, display: { xs: 'none', sm: 'block' } }}>
             <Link className='navLink' to="/movies">Home</Link>
           </Typography>
           <Typography variant="h6" noWrap component="li" sx={{flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
