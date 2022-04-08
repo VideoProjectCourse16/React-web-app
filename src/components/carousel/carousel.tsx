@@ -8,6 +8,8 @@ import FilmCard from "../filmCard/filmCard";
 import "./carousel.css";
 import { useNavigate } from "react-router-dom";
 import { movies } from "../../models/mock";
+import { useDispatch } from "react-redux";
+import { fetchMovies } from "../../store/reducers/movies";
 
 
 const genreMock= [
@@ -15,6 +17,7 @@ const genreMock= [
   'Crime', 'Horror', 'Animation', 'Thriller', 'Drama', 'Romance', 'Western'
 ]
 export const CarouselComponent: FC = () => {
+  const dispatch = useDispatch();
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
   };
@@ -24,15 +27,17 @@ export const CarouselComponent: FC = () => {
 
 
   const getFilms = useCallback(() => {
-    //getMovies().then(({data})=>setFilms(data)).catch((err)=>console.log(err.message))
-    const data = movies.map((movie) =>movie);
-    console.log(data)
-    setFilms(data);
+    getMovies().then(({data})=>{setFilms(data); dispatch(fetchMovies(data))}).catch((err)=>console.log(err.message));
+   
+
+    // const data = movies.map((movie) =>movie);
+    // console.log(data)
+    // setFilms(data);
   }, [])
 
   const filtergenre=(): string[]=>{
     return films && films.map(item=>item.genre)
-     .filter((film, i, ar)=>ar.indexOf(film)===i)
+    .filter((film, i, ar)=>ar.indexOf(film)===i)
     // const data2=films.filter(film=>film.genre===)
     // setgenre(data2)
   }

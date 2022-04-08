@@ -14,10 +14,9 @@ import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
 import "./filmCard.css"
 import { useNavigate }from 'react-router-dom'
-import { add, remove } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFavourites } from "../../store/selector";
 import { postFavorite } from "../../services/movies";
+import { useFavorites } from "../../hooks/useFavorites";
 //import {player} from 'video-react'
 
 const useStyles = makeStyles({
@@ -31,27 +30,26 @@ const useStyles = makeStyles({
 });
 
 type filmCard={movie:Movie,movieIesimo:(_:string)=>void};
+
+
 const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
-    const [is_elev, setElev]=useState(2 as 2|10)
-    let [render, setRender]=useState<boolean>(false);  
+    const { favorites, addFavorite } = useFavorites();
+    const [is_elev, setElev]=useState<2 | 10>(2);
+    const [render, setRender]=useState<boolean>(false);  
 
     const classes = useStyles();
-    //const [favorites, setFavorites]=useState<Movie[]>([]);
-    const favouriteIds = useSelector(selectFavourites);
-    const dispatch = useDispatch();
-
-   
+  
 
   return (
     <Card   style={{border: '3px solid blue'}}  elevation={is_elev}  onMouseOver={()=>{setElev(10); setRender(true)}} onMouseLeave={()=>{setElev(2); setRender(false)}} className={classes.root}>
       <CardActionArea  onClick={()=>movieIesimo(movie.id)}>
         { render ?
-           <iframe 
+          <iframe 
             frameBorder="0"
             title="video"
             className="trailer"
             src={`${movie.trailer}?autoplay=1&mute=1&loop=1&controls=0&rel=0`}/>
-       :
+        :
         <CardMedia
             className={classes.media}
             image={movie.backdrop_path}
@@ -71,7 +69,7 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
         <CardActions>
           { 
             //favouriteIds.includes(movie.id) &&
-              <IconButton aria-label="add to favorites"  onClick={() => dispatch(add(movie.id))}>
+              <IconButton aria-label="add to favorites" onClick={() => addFavorite(movie.id)} >
                   <FavoriteIcon />
               </IconButton>
           }
