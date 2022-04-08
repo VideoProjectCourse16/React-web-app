@@ -14,7 +14,6 @@ const User=()=>{
     const getUser = async () =>{
         const {data}= await getMe()  
         setUser(data) 
-        console.log('user:', user?.user) 
     }
 
     useEffect(()=>{
@@ -32,7 +31,7 @@ const User=()=>{
                         <Card.Body>
                             <Card.Title><h2 className="text-center">{user.user.username}</h2></Card.Title>
                             <Card.Text>
-                                <h3>Nome: { user.user.name}</h3>
+                                <h3>Username: { user.user.name}</h3>
                                 <h3>Cognome: {user.user.surname}</h3>
                                 <h3>Username: {user.user.username}</h3>
                             </Card.Text>

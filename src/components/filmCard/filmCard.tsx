@@ -14,6 +14,10 @@ import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
 import "./filmCard.css"
 import { useNavigate }from 'react-router-dom'
+import { add, remove } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFavourites } from "../../store/selector";
+import { postFavorite } from "../../services/movies";
 //import {player} from 'video-react'
 
 const useStyles = makeStyles({
@@ -29,12 +33,18 @@ const useStyles = makeStyles({
 type filmCard={movie:Movie,movieIesimo:(_:string)=>void};
 const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
     const [is_elev, setElev]=useState(2 as 2|10)
-    let [render, setRender]=useState<boolean>(false);    
+    let [render, setRender]=useState<boolean>(false);  
 
     const classes = useStyles();
+    //const [favorites, setFavorites]=useState<Movie[]>([]);
+    const favouriteIds = useSelector(selectFavourites);
+    const dispatch = useDispatch();
+
+   
+
   return (
-    <Card  onClick={()=>movieIesimo(movie.id)}  style={{border: '3px solid blue'}}  elevation={is_elev}  onMouseOver={()=>{setElev(10); setRender(true)}} onMouseLeave={()=>{setElev(2); setRender(false)}} className={classes.root}>
-      <CardActionArea onMouseOver={()=>setRender(true)} onMouseLeave={()=>setRender(false)}>
+    <Card   style={{border: '3px solid blue'}}  elevation={is_elev}  onMouseOver={()=>{setElev(10); setRender(true)}} onMouseLeave={()=>{setElev(2); setRender(false)}} className={classes.root}>
+      <CardActionArea  onClick={()=>movieIesimo(movie.id)}>
         { render ?
            <iframe 
             frameBorder="0"
@@ -47,6 +57,7 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
             image={movie.backdrop_path}
             title={movie.title} 
         />
+        
         }
           <CardContent>
               <Typography gutterBottom variant="h5" component="h5">
@@ -58,12 +69,21 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
           </CardContent>
       </CardActionArea>
         <CardActions>
-            <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-            </IconButton>
+          { 
+            //favouriteIds.includes(movie.id) &&
+              <IconButton aria-label="add to favorites"  onClick={() => dispatch(add(movie.id))}>
+                  <FavoriteIcon />
+              </IconButton>
+          }
         </CardActions>
     </Card>
   );
 }
 
 export default FilmCard;
+
+
+// function async(arg0: () => void): <UserInfo>() => any {
+//   throw new Error("Function not implemented.");
+// }
+// <button onClick={() => dispatch(add(character.id))}>Aggiungi</button>

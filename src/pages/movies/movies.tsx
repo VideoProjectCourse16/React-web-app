@@ -6,14 +6,17 @@ import { Movie, Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import { CarouselComponent } from "../../components/carousel/carousel";
 import FilmCard from "../../components/filmCard/filmCard";
+import Image from 'react-bootstrap/Image'
 import { useNavigate } from "react-router";
+
 type filmCard={searchMovies:Movies};
+
 const MovieComponent: FC<filmCard> = ({searchMovies}) => {
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
   };
   let navigate = useNavigate();
-  // array provvisoria
+
   const links = [
     "https://picsum.photos/500/300?img=1",
     "https://picsum.photos/500/300?img=2",
@@ -41,10 +44,15 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
               {links.map((link, index) => {
                 return (
                   <Carousel.Item key={index}>
-                    <img
+                    <Image
                       className="d-block img-dim"
-                      src={link}
-                      alt="First slide"
+                     
+                       
+                      style={{backgroundImage:`url(${link})`}}
+                     // background-repeat: no-repeat; background-position: center; background-size: cover;
+  
+  
+                      
                     />
                   </Carousel.Item>
                 );
@@ -71,4 +79,5 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
     </div>
   );
 };
+
 export default MovieComponent;

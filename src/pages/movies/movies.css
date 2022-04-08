@@ -9,7 +9,8 @@
 .img-dim{
     height: 26vh;
     width: 94vw;
-    align-items: center;
+    object-fit: cover; 
+    
 }
 .icon{
     background-color: black;
