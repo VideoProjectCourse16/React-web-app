@@ -17,6 +17,7 @@ import { useNavigate }from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { postFavorite } from "../../services/movies";
 import { useFavorites } from "../../hooks/useFavorites";
+//import { useFavorites } from "../../hooks/useFavorites";
 //import {player} from 'video-react'
 
 const useStyles = makeStyles({
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-type filmCard={movie:Movie,movieIesimo:(_:string)=>void};
+type filmCard={movie:Movie,movieIesimo?:(_:string)=>void};
 
 
 const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
@@ -42,7 +43,7 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
 
   return (
     <Card   style={{border: '3px solid blue'}}  elevation={is_elev}  onMouseOver={()=>{setElev(10); setRender(true)}} onMouseLeave={()=>{setElev(2); setRender(false)}} className={classes.root}>
-      <CardActionArea  onClick={()=>movieIesimo(movie.id)}>
+      <CardActionArea  onClick={()=>movieIesimo && movieIesimo(movie.id)}>
         { render ?
           <iframe 
             frameBorder="0"

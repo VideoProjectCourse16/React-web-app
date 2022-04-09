@@ -9,7 +9,8 @@ import "./carousel.css";
 import { useNavigate } from "react-router-dom";
 import { movies } from "../../models/mock";
 import { useDispatch } from "react-redux";
-import { fetchMovies } from "../../store/reducers/movies";
+import { useFavorites } from "../../hooks/useFavorites";
+//import { fetchMovies } from "../../store/reducers/movies";
 
 
 const genreMock= [
@@ -17,29 +18,30 @@ const genreMock= [
   'Crime', 'Horror', 'Animation', 'Thriller', 'Drama', 'Romance', 'Western'
 ]
 export const CarouselComponent: FC = () => {
+  const {user} = useFavorites();
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
   };
-  let navigate = useNavigate();
+  const goSignin = () => navigate('/signin');
+  
   const [films, setFilms] = useState<Movie[]>([]);
-  const [genre, setgenre]=useState<Movies>([])
+  const [genre, setgenre]=useState<Movies>([]);
 
+  
 
   const getFilms = useCallback(() => {
-    getMovies().then(({data})=>{setFilms(data); dispatch(fetchMovies(data))}).catch((err)=>console.log(err.message));
-   
-
-    // const data = movies.map((movie) =>movie);
-    // console.log(data)
-    // setFilms(data);
+    getMovies().then((res)=>{
+      setFilms(res.data)
+    })   
   }, [])
+
+  //const getFilms = () => setFilms(movies)
 
   const filtergenre=(): string[]=>{
     return films && films.map(item=>item.genre)
     .filter((film, i, ar)=>ar.indexOf(film)===i)
-    // const data2=films.filter(film=>film.genre===)
-    // setgenre(data2)
   }
 
   const getMoviesByGenre=((term:string)=> films.filter(({genre})=>genre===term))
@@ -71,27 +73,12 @@ export const CarouselComponent: FC = () => {
         },
       }
 
-  /*const getGenreMovies = (term: string) => {
-        const data=  movies.map((movie)=>movie);
-        setFilms(data.filter(({genre})=>genre==term));
-    }*/
-
-  // const addToFavorites=(id:number)=>{
-  //     if (!characters) return;
-  //     const index = characters.findIndex(({id: idCharacter}) => id ===idCharacter);
-  //   if(index!==-1){
-  //     const result= characters.splice(index, 1);
-  //     setCharacter([...characters]);
-  //      setFavorites([...favorites, ...result])
-  //     }
-
-  //   }
-
   useEffect(() => {
     getFilms();
+
+    
     //filterFilm()
   }, []);
-
   return (
       <>
       {
@@ -106,7 +93,7 @@ export const CarouselComponent: FC = () => {
          
          getMoviesByGenre(item).map((film, index) => 
             <div style={{ marginRight: 10 }} key={index}>
-             {<FilmCard movieIesimo={goToFilm} movie={film} key={film.id} />}
+             {<FilmCard movieIesimo={ user ? goToFilm : goSignin} movie={film} key={film.id} />}
             </div>
          )
        }

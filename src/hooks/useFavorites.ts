@@ -1,13 +1,16 @@
 import { useCallback, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getMe } from "../services/auth";
 import { getFavorites, getMovies, postFavorite } from "../services/movies";
 import { RootState } from "../store";
 import { addFavorite, fetchFavorites } from "../store/reducers/favorites";
 import { fetchMovies } from "../store/reducers/movies";
+import { fetchUser } from "../store/reducers/user";
 
 export const useFavorites = () => {
     const {favorites} = useSelector(({favorites}: RootState) =>favorites);
     const {movies} = useSelector(({movies}: RootState) =>movies);
+    const {user} = useSelector(({user}: RootState) =>user);
 
     const dispatch = useDispatch();
 
@@ -20,10 +23,9 @@ export const useFavorites = () => {
         (async() => {
             !movies && dispatch(fetchMovies( (await getMovies()).data ))
             !favorites && dispatch(fetchFavorites((await getFavorites()).data.favorites))
+            !user && dispatch(fetchUser((await getMe()).data))
         })()
     }, []);
-
-
 
     const addFavorite = async(id: string) => {
         try {
@@ -35,7 +37,7 @@ export const useFavorites = () => {
         }
     }
 
-    return {favorites, addFavorite, filteredMovies};
+    return {favorites, addFavorite, filteredMovies, user};
     
 
 }

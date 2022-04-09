@@ -22,6 +22,7 @@ import { getMovieByTitle } from './services/movies';
 import { Movie, Movies, staticFilm } from './models/Movies';
 import { movies } from './models/mock';
 import debounce from 'lodash.debounce'
+import { useFavorites } from './hooks/useFavorites';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,6 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 function App() {
   const [filtFilms, setFiltFilms] = React.useState<Movies>([]);
+  const {user} = useFavorites();
   //const [search, setSearch] = React.useState<Movies>()
   const navigate=useNavigate()
 
@@ -95,6 +97,7 @@ function App() {
           aria-label="open drawer"
           sx={{ mr: 2 }}
           color="inherit"
+          
         >
           <img className='logo' src="./assets/logo.png" alt="" />
         </IconButton>
@@ -104,7 +107,12 @@ function App() {
           <Typography variant="h6" noWrap component="li" sx={{flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
             <Link className='navLink' to="/favorite">Favorite</Link>
           </Typography>
-          <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("signup")}  variant="Outlined">Iscriviti</Button>
+            {!user && 
+              <>
+                <Button style={{color:"white", background:"red",marginRight: 10}}  onClick={()=>navigate("signup")}  variant="Outlined">Iscriviti</Button>
+                <Button style={{color:"white", background:"red"}}  onClick={()=>navigate("signin")}  variant="Outlined">Login</Button>
+              </>
+            }
           <Search style={{background:"white"}}>
             <SearchIconWrapper >
               <SearchIcon />

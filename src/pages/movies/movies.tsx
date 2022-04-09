@@ -5,9 +5,11 @@ import "./movies.css";
 import { Movie, Movies, staticFilm } from "../../models/Movies";
 import { getMovieByGenre, getMovies } from "../../services/movies";
 import { CarouselComponent } from "../../components/carousel/carousel";
+
 import FilmCard from "../../components/filmCard/filmCard";
 import Image from 'react-bootstrap/Image'
 import { useNavigate } from "react-router";
+import { movies } from "../../models/mock";
 
 type filmCard={searchMovies:Movies};
 
@@ -17,14 +19,15 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
   };
   const navigate = useNavigate();
 
-  const links = [
-    "https://picsum.photos/500/300?img=1",
-    "https://picsum.photos/500/300?img=2",
-    "https://picsum.photos/500/300?img=3",
-    "https://picsum.photos/500/300?img=1",
-    "https://picsum.photos/500/300?img=2",
-    "https://picsum.photos/500/300?img=3",
-  ];
+  //const [movies, setMovies] = useState([] as Movie[]) 
+  /* useEffect(() => {
+   
+    getMovies().then(res => {   
+      console.log(res.data)
+      setMovies(res.data) // spariamo i dati dentro l aggiornamento dell array
+    })} // il tempo in secondi
+  , []) */
+
   return (
     <div className="homeContainer">
       <div className=" indicators ">
@@ -41,16 +44,15 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
               variant="dark"
               pause={"hover"}
             >
-              {links.map((link, index) => {
+              {movies.slice(0,12).map((link, index) => {
                 return (
                   <Carousel.Item key={index}>
                     <Image
                       className="d-block img-dim"
                       
                       
-                      style={{backgroundImage:`url(${link})`}}
-                     // background-repeat: no-repeat; background-position: center; background-size: cover;
-  
+                      style={{backgroundImage:`url(${link.backdrop_path})`}}
+                  
   
                       
                     />

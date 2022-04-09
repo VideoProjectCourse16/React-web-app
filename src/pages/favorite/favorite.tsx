@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import{ Favorites, Favorite }from  "../../models/favorites";
 import { fetchFavorites } from "../../store/reducers/favorites";
 import { useFavorites } from "../../hooks/useFavorites";
+import FilmCard from "../../components/filmCard/filmCard";
 
 
 
@@ -47,8 +48,8 @@ const FavoriteComponent=()=>{
             <Grid container>
             
                 {filteredMovies() &&
-                filteredMovies().map( item=> {
-                    return <h1>{item.title}</h1>
+                filteredMovies().map( film=> {
+                    <FilmCard movie={film} key={film.id} />
                 })}
                     
             </Grid>
@@ -57,15 +58,3 @@ const FavoriteComponent=()=>{
 
     )}
 export default FavoriteComponent;
-/*"id": "string",
-    "title": "string",
-    "popularity": 0,
-    "genre": "string",
-    "original_language": "string",
-    "plot": "string",
-    "poster_path": 0,
-    "trailer": "string",
-    "backdrop_path": "string",
-    "release_date": "string",
-    "adult": true,
-    "vote_average": "string" */
