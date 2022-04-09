@@ -17,5 +17,6 @@ const getMovieByTitle=(title:string)=>axios.get<Movies>(`${baseUrl}/movies?title
 
 const getFavorites = ()=> axios.get<Favorite>(`${baseUrl}/users/favorites`,{headers: {'Content-Type': 'application/json', authorization: `Bearer ${localStorage.getItem('token')}`}});
 const postFavorite = (id:string)=>axios.post<PostFavorite>(`${baseUrl}/users/favorites`, {movieId: id},{headers: {'Content-Type': 'application/json', authorization: `Bearer ${localStorage.getItem('token')}`}})
+const remFavorite = (userId: string, movieId: string) => axios.delete(`${baseUrl}/users/${userId}/favorites/${movieId}`, {headers: {'Content-Type': 'application/json', authorization: `Bearer ${localStorage.getItem('token')}`}})
 
-export {getMovies, getMovieByGenre,getFavorites,postFavorite,getMovieById, getMovieByTitle}
+export {getMovies, getMovieByGenre,getFavorites,postFavorite,getMovieById, getMovieByTitle, remFavorite}

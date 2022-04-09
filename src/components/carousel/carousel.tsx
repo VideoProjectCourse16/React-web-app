@@ -10,16 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { movies } from "../../models/mock";
 import { useDispatch } from "react-redux";
 import { useFavorites } from "../../hooks/useFavorites";
-//import { fetchMovies } from "../../store/reducers/movies";
 
-
-const genreMock= [
-  'Action', 'Science Fiction', 'Adventure', 'Comedy', 'Fantasy', 'Family', 
-  'Crime', 'Horror', 'Animation', 'Thriller', 'Drama', 'Romance', 'Western'
-]
 export const CarouselComponent: FC = () => {
   const {user} = useFavorites();
-  const dispatch = useDispatch();
   let navigate = useNavigate();
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
@@ -27,9 +20,6 @@ export const CarouselComponent: FC = () => {
   const goSignin = () => navigate('/signin');
   
   const [films, setFilms] = useState<Movie[]>([]);
-  const [genre, setgenre]=useState<Movies>([]);
-
-  
 
   const getFilms = useCallback(() => {
     getMovies().then((res)=>{

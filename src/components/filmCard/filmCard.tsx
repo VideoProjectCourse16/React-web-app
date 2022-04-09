@@ -9,13 +9,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from "@material-ui/core";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import { Movie, staticFilm } from "../../models/Movies";
 import "./filmCard.css"
 import { useNavigate }from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { postFavorite } from "../../services/movies";
+import { postFavorite, remFavorite } from "../../services/movies";
 import { useFavorites } from "../../hooks/useFavorites";
 //import { useFavorites } from "../../hooks/useFavorites";
 //import {player} from 'video-react'
@@ -34,7 +35,7 @@ type filmCard={movie:Movie,movieIesimo?:(_:string)=>void};
 
 
 const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
-    const { favorites, addFavorite } = useFavorites();
+    const { favorites, user, addFavorite } = useFavorites();
     const [is_elev, setElev]=useState<2 | 10>(2);
     const [render, setRender]=useState<boolean>(false);  
 
@@ -70,9 +71,13 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
         <CardActions>
           { 
             //favouriteIds.includes(movie.id) &&
+            favorites ?
               <IconButton aria-label="add to favorites" onClick={() => addFavorite(movie.id)} >
-                  <FavoriteIcon />
+                  <FavoriteBorderIcon />
               </IconButton>
+              : <IconButton aria-label="add to favorites" onClick={() => remFavorite(String(user!.user.id),movie.id)} >
+                  <FavoriteIcon color="error" />
+                </IconButton>
           }
         </CardActions>
     </Card>
