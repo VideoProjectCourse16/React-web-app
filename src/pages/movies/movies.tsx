@@ -15,7 +15,7 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
   };
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const links = [
     "https://picsum.photos/500/300?img=1",
@@ -46,8 +46,8 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
                   <Carousel.Item key={index}>
                     <Image
                       className="d-block img-dim"
-                     
-                       
+                      
+                      
                       style={{backgroundImage:`url(${link})`}}
                      // background-repeat: no-repeat; background-position: center; background-size: cover;
   

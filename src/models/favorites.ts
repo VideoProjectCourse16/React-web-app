@@ -8,3 +8,10 @@ export interface Favorites {
     movieId: string,
     username: string
 }
+
+export interface PostFavorite {
+    message: string,
+    favorite: {
+        movieId: string
+    }
+}

@@ -7,8 +7,9 @@ import Image from 'react-bootstrap/Image'
 import{ movies }from  "../../models/mock";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFavourites } from "../../store/selector";
-import{ Favorites, Favorite }from  "../../models/favourites";
+import{ Favorites, Favorite }from  "../../models/favorites";
+import { fetchFavorites } from "../../store/reducers/favorites";
+import { useFavorites } from "../../hooks/useFavorites";
 
 
 
@@ -17,14 +18,18 @@ import{ Favorites, Favorite }from  "../../models/favourites";
 movieId: string,
 username: string,  Omit<Todo, "completed" | "createdAt">; */
 const FavoriteComponent=()=>{
+    const {filteredMovies} = useFavorites();
+    const dispatch = useDispatch();
     const [favorites, setFavorites]=useState<Favorite>();
 
     // const favourites = useSelector(selectFavourites);
     // const dispatch = useDispatch();
- 
+
     const getFavourites = async() => {
-        const {data} = await getFavorites()
-        console.log('data',data)
+        const {data} = await getFavorites();
+        dispatch(fetchFavorites(data.favorites));
+        console.log('data',data);
+
         setFavorites(data)
     } 
     useEffect(()=>{
@@ -32,28 +37,23 @@ const FavoriteComponent=()=>{
     },[]);
 
     useEffect(() => {
-       favorites && console.log("fav", favorites);
+        favorites && console.log("fav", favorites);
     }, [favorites])
-   
+
     return (
         <> 
-        <Container>
-        
-        <Grid container>
-         
-            {favorites &&
-            favorites.favorites.map( item=> {
-               return <h1>{item.id}</h1>
-            })}
-                
-        </Grid>
-        </Container>
+            <Container>
             
-                
-         
-        
-      
- </>  
+            <Grid container>
+            
+                {filteredMovies() &&
+                filteredMovies().map( item=> {
+                    return <h1>{item.title}</h1>
+                })}
+                    
+            </Grid>
+            </Container>
+        </>  
 
     )}
 export default FavoriteComponent;
