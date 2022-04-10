@@ -4,7 +4,6 @@ import { Favorites } from '../../models/favorites';
 interface FavoritesState {
   selectedFavorite: string | undefined,
   favorites: Favorites[] | undefined
-
 }
 
 const initialState = { selectedFavorite: undefined, favorites: undefined } as FavoritesState

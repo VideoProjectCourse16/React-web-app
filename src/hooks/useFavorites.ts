@@ -6,7 +6,6 @@ import { RootState } from "../store";
 import { addFavorite, fetchFavorites } from "../store/reducers/favorites";
 import { fetchMovies } from "../store/reducers/movies";
 import { fetchUser } from "../store/reducers/user";
-import  {movies as mock}  from "../models/mock"
 
 export const useFavorites = () => {
     const {favorites} = useSelector(({favorites}: RootState) =>favorites);

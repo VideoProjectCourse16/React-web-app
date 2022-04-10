@@ -85,9 +85,3 @@ const FilmCard: FC<filmCard>=({movie, movieIesimo})=> {
 }
 
 export default FilmCard;
-
-
-// function async(arg0: () => void): <UserInfo>() => any {
-//   throw new Error("Function not implemented.");
-// }
-// <button onClick={() => dispatch(add(character.id))}>Aggiungi</button>
