@@ -33,18 +33,23 @@ const MovieComponent: FC<filmCard> = ({searchMovies}) => {
       <div className=" indicators ">
         <div className="row">
           <div className="col-12">
+         
             <Carousel
               controls={true}
-              nextIcon={
-                <span
-                  aria-hidden="true"
-                  className="carousel-control-next-icon "
-                />
+              prevIcon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#fff" className="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+              </svg>
               }
-              variant="dark"
+             
+              nextIcon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#fff" className="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+              </svg>
+              }
               pause={"hover"}
             >
-              {movies.slice(0,12).map((link, index) => {
+              {movies.slice(0,13).map((link, index) => {
                 return (
                   <Carousel.Item key={index}>
                     <Image
