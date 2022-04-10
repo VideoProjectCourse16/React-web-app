@@ -6,6 +6,7 @@ import { RootState } from "../store";
 import { addFavorite, fetchFavorites } from "../store/reducers/favorites";
 import { fetchMovies } from "../store/reducers/movies";
 import { fetchUser } from "../store/reducers/user";
+import  {movies as mock}  from "../models/mock"
 
 export const useFavorites = () => {
     const {favorites} = useSelector(({favorites}: RootState) =>favorites);
@@ -21,7 +22,7 @@ export const useFavorites = () => {
 
     useEffect(() => {
         (async() => {
-            !movies && dispatch(fetchMovies( (await getMovies()).data ))
+            !movies && dispatch(fetchMovies( (await getMovies()).data )) 
             !favorites && dispatch(fetchFavorites((await getFavorites()).data.favorites))
             !user && dispatch(fetchUser((await getMe()).data))
         })()

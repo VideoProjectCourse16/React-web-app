@@ -23,7 +23,7 @@ export const CarouselComponent: FC = () => {
 
   const getFilms = useCallback(() => {
     getMovies().then((res)=>{
-      setFilms(res.data)
+        setFilms(res.data)
     })   
   }, [])
 
@@ -72,26 +72,24 @@ export const CarouselComponent: FC = () => {
   return (
       <>
       {
-         filtergenre().map((item, i)=>
-         <React.Fragment key={i}>
-         <h2 style={{color:'white'}} key={item}>Films di {item} </h2>
-        <Carousel  responsive={responsive} arrows={true} className="carousel" draggable keyBoardControl={true}
-         minimumTouchDrag={80} pauseOnHover={true} ssr={true} focusOnSelect={true} infinite={false}
-         showDots={true} sliderClass="" slidesToSlide={3} swipeable shouldResetAutoplay={false} autoPlay={false}
-          > 
-       {
-         
-         getMoviesByGenre(item).map((film, index) => 
-            <div style={{ marginRight: 10 }} key={index}>
-             {<FilmCard movieIesimo={ user ? goToFilm : goSignin} movie={film} key={film.id} />}
-            </div>
-         )
-       }
-      
-      </Carousel> 
-     </React.Fragment>
+        filtergenre().map((item, i)=>
+        <React.Fragment key={i}>
+            <h2 style={{color:'white'}} key={item}>Films di {item} </h2>
+            <Carousel  responsive={responsive} arrows={true} className="carousel" draggable keyBoardControl={true}
+              minimumTouchDrag={80} pauseOnHover={true} ssr={true} focusOnSelect={true} infinite={false}
+              showDots={true} sliderClass="" slidesToSlide={3} swipeable shouldResetAutoplay={false} autoPlay={false}
+            > 
+          {
+            getMoviesByGenre(item).map((film, index) => 
+                <div style={{ marginRight: 10 }} key={index}>
+                  {<FilmCard movieIesimo={ user ? goToFilm : goSignin} movie={film} key={film.id} />}
+                </div>
+            )
+          }
+          
+          </Carousel> 
+        </React.Fragment>
       )
-         
     }
   </>
   );
