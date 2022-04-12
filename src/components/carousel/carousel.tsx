@@ -82,7 +82,8 @@ export const CarouselComponent: FC = () => {
           {
             getMoviesByGenre(item).map((film, index) => 
                 <div style={{ marginRight: 10 }} key={index}>
-                  {<FilmCard movieIesimo={ user ? goToFilm : goSignin} movie={film} key={film.id} />}
+                  {<FilmCard movieIesimo={  user ? goToFilm : goSignin} movie={film} key={film.id} />}
+                 
                 </div>
             )
           }

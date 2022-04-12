@@ -14,10 +14,11 @@ import { Container } from "react-bootstrap";
     const SingleFilm: FC =()=>{
         let { id }= useParams() as {id:string};
         const [singleMovie, setSingleMovie]=useState<Movie>()
+
        const loadData=(()=>{
-        //getMovieById(id).then((res)=>setSingleMovie(res.data));
-        const res=movies.find(({id:idFilm})=>idFilm===id);
-        setSingleMovie(res)
+        getMovieById(id).then((res)=>setSingleMovie(res.data));
+        //const res=movies.find(({id:idFilm})=>idFilm===id);
+        //setSingleMovie(res)
         })
 
         useEffect(()=>{
@@ -26,27 +27,6 @@ import { Container } from "react-bootstrap";
 
         
         return(
-            // <div className="container-fluid p-5">
-            //     <div style={{backgroundImage: `url(${singleMovie?.backdrop_path})`}} className="myCont">
-            //         {/* <img src={singleMovie?.backdrop_path} alt="" /> */}
-            //     </div>
-            //     { singleMovie && 
-            //         <div className="d-flex justify-content-center p-5 myDistance">
-            //             <iframe 
-            //                 frameBorder="0"
-            //                 allow="autoplay; encrypted-media"
-            //                 allowFullScreen
-            //                 title="video"
-            //                 width="650" height="450" 
-            //                 src={`https://www.youtube.com/${youtube()}`}>
-            //             </iframe>
-            //         </div>
-            //     }
-            //     <h1 className="text-center">{ singleMovie?.title}</h1>
-            //     <h5> Genre: {singleMovie?.genre} | language: {singleMovie?.original_language} |
-            //         popularity: {singleMovie?.popularity} | date: {singleMovie?.release_date} | vote_average: {singleMovie?.vote_average}</h5>
-            //     <p>{singleMovie?.plot}</p> 
-            // </div>
 
 
             <Container>

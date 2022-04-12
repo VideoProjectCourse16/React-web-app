@@ -15,9 +15,6 @@ import FilmCard from "../../components/filmCard/filmCard";
 
 
 
-/* id: string,
-movieId: string,
-username: string,  Omit<Todo, "completed" | "createdAt">; */
 const FavoriteComponent=()=>{
     const {filteredMovies} = useFavorites();
     const dispatch = useDispatch();
@@ -29,7 +26,6 @@ const FavoriteComponent=()=>{
     const getFavourites = async() => {
         const {data} = await getFavorites();
         dispatch(fetchFavorites(data.favorites));
-        console.log('data',data);
 
         setFavorites(data)
     } 
@@ -43,16 +39,15 @@ const FavoriteComponent=()=>{
 
     return (
         <> 
-            <Container>
-            
-            <Grid container>
-            
-                {filteredMovies() &&
-                filteredMovies().map( film=> {
-                    <FilmCard movie={film} key={film.id} />
-                })}
-                    
-            </Grid>
+            <Container>     
+                <Grid container>
+                
+                    {filteredMovies() &&
+                    filteredMovies().map( film=> {
+                        <FilmCard movie={film} key={film.id} />
+                    })}
+                        
+                </Grid>
             </Container>
         </>  
 

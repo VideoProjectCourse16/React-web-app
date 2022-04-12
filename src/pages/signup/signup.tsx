@@ -54,7 +54,7 @@ const Signup = () => {
           : navigate("/signin");
       });
   };
-  // return  e===`Username ${username} already exists`? console.log('user exist'): `User ${username} succesfully registered!`;
+
   return (
     <Container className="signup-container" maxWidth="xs">
       <Paper className="paper" elevation={10}>

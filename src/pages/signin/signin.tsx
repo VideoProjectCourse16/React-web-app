@@ -22,7 +22,6 @@ useEffect(()=>{
 
 
     let navigate=useNavigate();
-    
     const changeHandler:ChangeEventHandler<HTMLInputElement> = ({target:{name, value}}) => {
         setUser({...user, [name]:value});
     };
