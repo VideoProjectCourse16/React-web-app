@@ -14,6 +14,7 @@ import { useFavorites } from "../../hooks/useFavorites";
 export const CarouselComponent: FC = () => {
   const {user} = useFavorites();
   let navigate = useNavigate();
+  
   const goToFilm = (id: string) => {
     navigate(`/movies/${id}`);
   };

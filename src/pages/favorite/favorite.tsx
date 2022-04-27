@@ -44,7 +44,7 @@ const FavoriteComponent=()=>{
                 
                     {filteredMovies() &&
                     filteredMovies().map( film=> {
-                        <FilmCard movie={film} key={film.id} />
+                        <FilmCard  movie={film} key={film.id} />
                     })}
                         
                 </Grid>
